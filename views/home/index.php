@@ -1,4 +1,4 @@
-<a href="<?= BASE_DIR?>crud/cadastro"><button>Cadastrar</button></a>
+<a href="<?= BASE_DIR?>add"><button>Cadastrar</button></a>
 
 <table width="100%" style="text-align: center;" border="1">
     <tr>

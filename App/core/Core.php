@@ -1,6 +1,7 @@
 <?php
 namespace App\core;
 
+use Routes\Router;
 
 class Core{
     public function run(){
@@ -9,6 +10,9 @@ class Core{
         if(isset($_GET["url"])){
             $url .= $_GET["url"];
         }
+
+        $Router = new Router;
+        $url = $Router::getRoutes($url);
 
         if(!empty($url) && $url != "/"){
 
