@@ -3,30 +3,51 @@
 namespace App\repositories;
 
 use App\core\Repository;
-use App\models\User;
-use PDO;
+use App\interfaces\UserInterface;
+use App\Models\User;
 
-class UserRepositoryMysql extends Repository{
+class UserRepositoryMysql extends Repository implements UserInterface{
 
-    public function FindUser($id){
-        $sql = $this->pdo->prepare("SELECT * FROM personagem WHERE id = :id");
-        $sql->bindValue(":id", $id);
+    public function create(User $user)
+    {
+        $sql = $this->pdo->prepare("INSERT INTO users 
+        (name, password, email, token) VALUES (:name, :password, :email, :token)");
+        $sql->bindValue(":name", $user->getName());
+        $sql->bindValue(":password", $user->getPassword());
+        $sql->bindValue(":email", $user->getEmail());
+        $sql->bindValue(":token", $user->getToken());
+        $sql->execute();
+    }
+    
+    public function update(User $user){}
+    
+    public function findBy($key, $value){
+        $sql = $this->pdo->prepare("SELECT * FROM users WHERE $key = :$key");
+        $sql->bindValue(":$key", $value);
         $sql->execute();
 
-        $data = $sql->fetch(PDO::FETCH_ASSOC);
+        if($sql->rowCount() > 0){
+            $data = $sql->fetchAll();
         
-        $user = $this->_generanteUser($data);
+            foreach($data as $item){
+                $user = $this->_generateUser($item);
+            }
 
-        return $user;
+            return $user;
+        }else{
+            return false;
+        }
     }
+    
+    public function delete($id){}
 
-    private function _generanteUser($data){
-        $user = new User;
-        $user->id = $data["id"];
-        $user->nome = $data["nome"];
-        
-        return $user;
+    private function _generateUser($data){
+        $User = new User;
+        $User->setName($data["name"]);
+        $User->setName($data["email"]);
+        $User->setName($data["password"]);
+        $User->setName($data["token"]);
+
+        return $User;
     }
 }
-
-?>

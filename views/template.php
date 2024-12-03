@@ -6,9 +6,6 @@
     <title>CRUD</title>
 </head>
 <body>
-    <h1>Teste Crud</h1>
-    <h3>Testa ae</h3>
-    <hr>
 
     <?php $this->loadViewTemplate($viewName, $viewData)?>
 

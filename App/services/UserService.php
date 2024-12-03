@@ -6,15 +6,10 @@ use App\repositories\UserRepositoryMysql;
 
 class UserService{
     
-    private $UserRepository;
+    public function getUser($key, $value){
 
-    public function __construct()
-    {
-        $this->UserRepository = new UserRepositoryMysql;
-    }
-
-    public function getUser($id){
-        $user = $this->UserRepository->FindUser($id);
+        $UserRepository = new UserRepositoryMysql;
+        $user = $UserRepository->findBy($key, $value);
         return $user;
     }
 

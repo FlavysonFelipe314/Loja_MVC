@@ -6,10 +6,17 @@ class Routes{
     public static function getRoutes(){
 
         return  [
-        
-            '/galeria/{id}/{titulo}' => 'GaleriaController@abrir',
-            '/add' => 'CrudController@cadastro'
-        
+            '/' => 'HomeController@index',
+            '/home' => 'HomeController@index',
+
+            '/login' => 'HomeController@login',
+            '/getLogin' => 'HomeController@getLogin',
+            
+            '/cadastro' => 'HomeController@cadastro',
+            '/getCadastro' => 'HomeController@getCadastro',
+
+            '/logout' => 'HomeController@logout'
+
         ];
     }
 

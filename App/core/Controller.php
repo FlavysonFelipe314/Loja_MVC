@@ -17,5 +17,9 @@ class Controller{
         require_once __DIR__ .  "/../../views/".$viewName.".php";
     }
 
+    public function loadFlash($type, $message){
+        $_SESSION["flash"] = $type.": $message";
+    } 
+
 }
 ?>
