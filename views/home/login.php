@@ -6,10 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="">
+    <form action="<?= BASE_DIR?>getLogin" method="POST">
         <input type="email" name="email" placeholder="email"><br>
         <input type="password" name="password" placeholder="senha"><br>
         <button type="submit">Entrar</button>
     </form>
+
+    <a href="<?= BASE_DIR?>cadastro">Cadastrar</a>
 </body>
 </html>

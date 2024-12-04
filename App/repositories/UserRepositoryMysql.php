@@ -4,7 +4,7 @@ namespace App\repositories;
 
 use App\core\Repository;
 use App\interfaces\UserInterface;
-use App\Models\User;
+use App\models\User;
 
 class UserRepositoryMysql extends Repository implements UserInterface{
 
@@ -19,7 +19,22 @@ class UserRepositoryMysql extends Repository implements UserInterface{
         $sql->execute();
     }
     
-    public function update(User $user){}
+    public function update(User $user)
+    {
+        $sql = $this->pdo->prepare("UPDATE users SET
+            name = :name,
+            email = :email,
+            password = :password,
+            token = :token 
+        WHERE id = :id");
+
+        $sql->bindValue(":name", $user->getName());
+        $sql->bindValue(":email", $user->getEmail());
+        $sql->bindValue(":password", $user->getPassword());
+        $sql->bindValue(":token", $user->getToken());
+        $sql->bindValue(":id", $user->getId());
+        $sql->execute();
+    }
     
     public function findBy($key, $value){
         $sql = $this->pdo->prepare("SELECT * FROM users WHERE $key = :$key");
@@ -39,14 +54,21 @@ class UserRepositoryMysql extends Repository implements UserInterface{
         }
     }
     
-    public function delete($id){}
+    public function delete($id)
+    {
+        $sql = $this->pdo->prepare("DELETE FROM users WHERE id = :id");
+        $sql->bindValue(":id", $id);
+        $sql->execute();
+
+    }
 
     private function _generateUser($data){
         $User = new User;
+        $User->setId($data["id"]);
         $User->setName($data["name"]);
-        $User->setName($data["email"]);
-        $User->setName($data["password"]);
-        $User->setName($data["token"]);
+        $User->setEmail($data["email"]);
+        $User->setPassword($data["password"]);
+        $User->setToken($data["token"]);
 
         return $User;
     }

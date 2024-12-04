@@ -12,5 +12,7 @@
         <input type="password" name="password" placeholder="senha"><br>
         <button type="submit">Entrar</button>
     </form>
+
+    <a href="<?= BASE_DIR?>login">Login</a>
 </body>
 </html>

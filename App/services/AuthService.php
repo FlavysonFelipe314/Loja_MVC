@@ -41,6 +41,29 @@ class AuthService{
         $_SESSION["token"] = $token;
     }
 
+    public function validateLogin($email, $password)
+    {
+        $UserRepository = new UserRepositoryMysql;
+        $user = $UserRepository->findBy("email", $email);
+        
+        if(!empty($user)){
+            if(password_verify($password, $user->getPassword())){
+
+                $token = md5(time().rand(0,9999));
+
+                $_SESSION["token"] = $token;
+                $user->setToken($token);
+
+                $UserRepository->update($user);
+                
+                return true;
+                exit;
+            }
+        }
+        
+        return false;
+    }
+
 
     public function logout()
     {

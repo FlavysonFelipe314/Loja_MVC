@@ -15,6 +15,9 @@ class Routes{
             '/cadastro' => 'HomeController@cadastro',
             '/getCadastro' => 'HomeController@getCadastro',
 
+            '/produtos' => 'ProductsController@index',
+            '/addProduct' => 'ProductsController@cadastro',
+            
             '/logout' => 'HomeController@logout'
 
         ];

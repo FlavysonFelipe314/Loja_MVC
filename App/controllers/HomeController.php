@@ -3,7 +3,7 @@
 namespace App\controllers;
 
 use App\core\Controller;
-use App\Services\AuthService;
+use App\services\AuthService;
 use App\services\UserService;
 use Exception;
 
@@ -12,8 +12,12 @@ class HomeController extends Controller{
     public function index(){        
         $AuthService = new AuthService;
         $userInfo = $AuthService->checkToken();
+
+        $data = [
+            'nome' => $userInfo->getName(),
+        ];
         
-        $this->loadTemplate("home/index");
+        $this->loadTemplate("home/index", $data);
     }
 
     public function cadastro()
@@ -66,7 +70,23 @@ class HomeController extends Controller{
 
     public function getLogin()
     {        
-        $this->loadTemplate("home/cadastro");
+        if($_SERVER["REQUEST_METHOD"] === "POST"){
+            $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_URL);
+            $password = filter_input(INPUT_POST, "password");
+        
+            $AuthService = new AuthService;
+            
+            if($AuthService->validateLogin($email, $password)){
+                $this->loadFlash("Sucesso", "Login Realizado com Sucesso");
+                header("Location: ".BASE_DIR);
+                exit;
+            }
+
+            $this->loadFlash("erro", "Email ou Senha Incorretos");
+            header("Location: ".BASE_DIR."login");
+
+
+        }
     }
 
 
