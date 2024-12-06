@@ -27,7 +27,6 @@ class Router{
             }
 
             $pattern = preg_replace("(\{[a-z0-9]{1,}\})", "([a-z0-9]{1,})", $pt);
-
             // Faz o match da url
             if(preg_match("#^($pattern)*$#i", $url, $matches) === 1){
                 array_shift($matches);
@@ -39,6 +38,7 @@ class Router{
                 }
 
                 $url = $newUrl;
+
                 break;
             }
         }

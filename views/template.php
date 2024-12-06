@@ -7,7 +7,10 @@
 </head>
 <body>
 
-    <?php $this->loadViewTemplate($viewName, $viewData)?>
+    <?php 
+        $this->loadViewTemplate($viewName, $viewData);
+        $this->getFlashMessage();
+    ?>
 
 </body>
 </html>

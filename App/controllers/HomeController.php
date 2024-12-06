@@ -14,7 +14,7 @@ class HomeController extends Controller{
         $userInfo = $AuthService->checkToken();
 
         $data = [
-            'nome' => $userInfo->getName(),
+            'user' => $userInfo,
         ];
         
         $this->loadTemplate("home/index", $data);
@@ -40,7 +40,6 @@ class HomeController extends Controller{
                 try{
                     $AuthService->registerUser($name, $password, $email);
 
-
                     $this->loadFlash("Sucesso", "Cadastro Realizado Com Sucesso");
                     
                     echo "Cadastrado com Sucesso";
@@ -52,9 +51,8 @@ class HomeController extends Controller{
                     $this->loadFlash("erro", "Algo deu Errado: $e");
                     header("Location: ".BASE_DIR."cadastro");
                 }
-
             }else{
-                $this->loadFlash("erro", "Já existe uma Conta com Esse Nome");
+                $this->loadFlash("erro", "Já existe uma Conta com Esse Email");
                 header("Location: ".BASE_DIR."cadastro");
             }
 

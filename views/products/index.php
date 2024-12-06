@@ -1,4 +1,11 @@
+<h1>Produtos</h1>
+<p><?= $user->getName()?></p>
+<p><?= $user->getEmail()?></p>
 
-
-<h1>olá <?= $nome?></h1>
-
+<?php foreach($produtos as $produto):?>
+    <hr>
+    <p><?= $produto->getName()?></p>
+    <p><?= $produto->getPrice()?></p>
+    <p><?= $produto->getDescription()?></p>
+    <a href="<?= BASE_DIR?>produto/<?= $produto->getId()?>">Comprar</a>
+<?php endforeach;?>

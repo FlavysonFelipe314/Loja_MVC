@@ -5,6 +5,7 @@ namespace App\repositories;
 use App\core\Repository;
 use App\interfaces\UserInterface;
 use App\models\User;
+use PDO;
 
 class UserRepositoryMysql extends Repository implements UserInterface{
 
@@ -42,11 +43,9 @@ class UserRepositoryMysql extends Repository implements UserInterface{
         $sql->execute();
 
         if($sql->rowCount() > 0){
-            $data = $sql->fetchAll();
+            $data = $sql->fetch(PDO::FETCH_ASSOC);
         
-            foreach($data as $item){
-                $user = $this->_generateUser($item);
-            }
+            $user = $this->_generateUser($data);
 
             return $user;
         }else{

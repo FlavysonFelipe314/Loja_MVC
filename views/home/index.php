@@ -1,6 +1,6 @@
 
 
-<h1>olá <?= $nome?></h1>
+<h1>olá <?= $user->getName()?></h1>
 
 
 <a href="<?= BASE_DIR?>logout">
@@ -13,14 +13,13 @@
 
 <button onclick="addProduct()">Cadastrar Produtos</button>
 
-
 <div class="modal">
-    <form action="<?= BASE_DIR?>add" enctype="multipart/form-data">
+    <form action="<?= BASE_DIR?>addProduct" method="POST" enctype="multipart/form-data">
         <h1 onclick="closeModal()">X</h1>
         <input type="text" name="name" placeholder="Nome...">
         <input type="Number" name="price" placeholder="Preço...">
         <input type="text" name="description" placeholder="Descrição...">
-        <input type="file" name="foto" accept="image/png, image/jpg, image/jpeg">
+        <input type="file" name="photo" accept="image/png, image/jpg, image/jpeg">
         <button type="submit">Cadastrar</button>
     </form>
 </div>

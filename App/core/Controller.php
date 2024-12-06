@@ -21,5 +21,16 @@ class Controller{
         $_SESSION["flash"] = $type.": $message";
     } 
 
+    public function getFlashMessage()
+    {
+        if(!empty($_SESSION["flash"]))
+        {
+            
+            echo $_SESSION["flash"];
+            $_SESSION["flash"] = "";
+        }
+    }
+
+
 }
 ?>
